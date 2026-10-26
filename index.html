@@ -1,8 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
 <head><div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-  <button onclick="location.hash='admin'" style="background:#ff7a00; color:white; padding:12px 18px; border-radius:30px; border:none; font-weight:bold; cursor:pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">🔐 Admin</button>
+  <button onclick="abrirAdminLogin()" style="background:#ff7a00; color:white; padding:12px 18px; border-radius:30px; border:none; font-weight:bold; cursor:pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">🔐 Admin</button>
 </div>
+
+<script>
+  function abrirAdminLogin() {
+    const email = prompt("Ingresa tu correo de administrador:");
+    if (!email) return;
+    const password = prompt("Ingresa tu contraseña:");
+    if (!password) return;
+
+    if (typeof supabase !== 'undefined') {
+      supabase.auth.signInWithPassword({ email, password }).then(({ data, error }) => {
+        if (error) {
+          alert("Error al entrar: " + error.message);
+        } else {
+          alert("¡Bienvenido, Administrador!");
+          window.location.hash = "admin";
+          location.reload();
+        }
+      });
+    } else {
+      alert("Error: Supabase no está cargado.");
+    }
+  }
+</script>
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+  <button onclick="abrirAdminLogin()" style="background:#ff7a00; color:white; padding:12px 18px; border-radius:30px; border:none; font-weight:bold; cursor:pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">🔐 Admin</button>
+</div>
+
+<script>
+  function abrirAdminLogin() {
+    const email = prompt("Ingresa tu correo de administrador:");
+    if (!email) return;
+    const password = prompt("Ingresa tu contraseña:");
+    if (!password) return;
+
+    if (typeof supabase !== 'undefined') {
+      supabase.auth.signInWithPassword({ email, password }).then(({ data, error }) => {
+        if (error) {
+          alert("Error al entrar: " + error.message);
+        } else {
+          alert("¡Bienvenido, Administrador!");
+          window.location.hash = "admin";
+          location.reload();
+        }
+      });
+    } else {
+      alert("Error: Supabase no está cargado.");
+    }
+  }
+</script>
+
+  
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
