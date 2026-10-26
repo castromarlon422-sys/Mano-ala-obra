@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Manos a la Obra – Directorio de oficios</title>
+<style>
+:root{--bg:#f6f7fb;--surface:#fff;--text:#14213d;--muted:#5b6478;--brand:#f77f00;--brand-d:#d56a00;--line:#e4e7ef;--chip:#fff3e3;--ok:#1b8a4b;--wa:#1faa59;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1424;--surface:#161e33;--text:#eef1f8;--muted:#a3adc4;--line:#263150;--chip:#2a2112;--ok:#4cd68a}}
+:root[data-theme="dark"]{--bg:#0e1424;--surface:#161e33;--text:#eef1f8;--muted:#a3adc4;--line:#263150;--chip:#2a2112;--ok:#4cd68a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.logo{font-weight:800;font-size:1.15rem;cursor:pointer;background:none;border:0;color:var(--text);font-family:inherit}.logo span{color:var(--brand)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:999px;padding:11px 18px;font:600 .95rem inherit;font-family:inherit;background:var(--brand);color:#fff;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--brand-d)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn.wa{background:var(--wa)}.btn.block{flex:1}
+.hero{padding:24px 0 14px}
+.hero h1{font-size:clamp(1.7rem,5vw,2.8rem);line-height:1.15;margin:0 0 10px}
+.hero p{color:var(--muted);margin:0 0 20px;max-width:560px}
+.search{display:grid;gap:10px;grid-template-columns:1fr;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px}
+.search input,.search select{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);font-size:1rem;font-family:inherit}
+@media(min-width:640px){.search.home{grid-template-columns:2fr 1fr auto}.search.cat{grid-template-columns:2fr 1fr}}
+h2{font-size:1.25rem;margin:26px 0 12px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr);gap:16px}}
+@media(min-width:1000px){.grid.cats{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 14px;text-align:left;cursor:pointer;color:inherit;font:inherit;transition:transform .15s,box-shadow .15s}
+.card:hover,.card:focus-visible{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.12);outline:2px solid var(--brand)}
+.ico{width:48px;height:48px;border-radius:14px;background:var(--chip);display:grid;place-items:center;font-size:1.6rem;margin-bottom:10px}
+.card b{display:block}.card small{color:var(--muted)}
+.cta{margin:30px 0;background:linear-gradient(135deg,#14213d,#27406e);color:#fff;border-radius:20px;padding:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.cta h3{margin:0 0 4px;font-size:1.2rem}.cta p{margin:0;opacity:.85}
+.back{background:none;border:0;color:var(--muted);font:600 .95rem inherit;font-family:inherit;cursor:pointer;padding:8px 0}
+.grid.workers{grid-template-columns:1fr}
+@media(min-width:700px){.grid.workers{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.grid.workers{grid-template-columns:repeat(3,1fr)}}
+.wcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.top{display:flex;gap:12px;align-items:center}
+.avatar{flex:none;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.3rem}
+.avatar.lg{width:92px;height:92px;font-size:1.9rem}
+.name{font-weight:700;line-height:1.2}.loc{color:var(--muted);font-size:.88rem}
+.meta{display:flex;flex-wrap:wrap;gap:10px;font-size:.88rem;color:var(--muted)}
+.stars{color:var(--brand);font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:var(--chip);color:var(--text);border-radius:999px;padding:3px 10px;font-size:.8rem}
+.empty{text-align:center;color:var(--muted);padding:36px 12px;background:var(--surface);border:1px dashed var(--line);border-radius:16px}
+.prof{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;margin-top:6px}
+.badge{display:inline-block;background:rgba(27,138,75,.14);color:var(--ok);border-radius:999px;padding:3px 10px;font-size:.8rem;font-weight:700}
+.actions{display:flex;gap:10px;margin:16px 0 4px;flex-wrap:wrap}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gal div{aspect-ratio:1;border-radius:12px;background:var(--chip);display:grid;place-items:center;font-size:1.8rem;border:1px dashed var(--line)}
+.prof ul{padding-left:20px;margin:6px 0}
+.form{display:grid;gap:14px}.field{display:grid;gap:6px}.field label{font-weight:600;font-size:.9rem}
+.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);font:inherit}
+.field textarea{min-height:110px;resize:vertical}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.gal img,.th img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;display:block}
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.th{position:relative}
+.th button{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;cursor:pointer}
+.steps2{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 16px}.steps2 span{padding:5px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:.82rem;color:var(--muted)}.steps2 .on{background:var(--brand);border-color:var(--brand);color:#fff}
+.sum{display:grid;gap:2px}.sum div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}.sum .tot{font-size:1.15rem;border-bottom:0}
+.badge.off{background:rgba(200,60,60,.14);color:#c0392b}#err{color:#c0392b;font-weight:600}
+footer{color:var(--muted);text-align:center;padding:24px 0 32px;font-size:.85rem}
+</style>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f77f00">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+<div class="wrap">
+<header>
+  <button class="logo" onclick="go('')">Manos a la <span>Obra</span></button>
+  <div style="display:flex;gap:8px"><button class="btn ghost" onclick="go('')">Inicio</button><button class="btn" onclick="go(session()?'panel':'registro')">Soy trabajador</button></div>
+</header>
+<main id="app"></main>
+<footer>© 2026 Manos a la Obra · Prototipo con datos de prueba</footer>
+</div>
+
+<script>
+var CATS=[
+["albanileria","🧱","Albañilería y Finos"],["auxiliares-construccion","👷","Auxiliares de Construcción"],["fontaneria","🔧","Fontanería y Plomería"],
+["electricidad","⚡","Electricidad Residencial e Industrial"],["pintura","🎨","Pintura y Acabados"],["carpinteria","🪚","Carpintería y Ebanistería"],
+["tablaroca","🏗️","Tablaroca / Gypsum"],["soldadura","🔥","Soldadura y Herrería"],["mecanica-automotriz","🚗","Mecánica Automotriz"],
+["mecanica-industrial","⚙️","Mecánica Industrial"],["enderezado","🛠️","Enderezado y Pintura"],["motoristas","🏍️","Motoristas, Fletes y Mudanzas"],
+["jardineria","🌿","Jardinería y Poda"],["aire-acondicionado","❄️","Aire Acondicionado y Refrigeración"],["electrodomesticos","🔌","Reparación de Electrodomésticos"],
+["limpieza","🧹","Limpieza de Casas y Oficinas"],["celulares-pc","📱","Reparación de Celulares y Computadoras"],["camaras-alarmas","📹","Cámaras de Seguridad y Alarmas"],
+["fumigacion","🐜","Fumigación y Plagas"],["otros","➕","Otros Oficios"]];
+
+var WORKERS=[
+{id:1,cat:"albanileria",nombre:"Carlos Alberto Martínez",ciudad:"San Miguel",depto:"San Miguel",anios:12,rating:4.8,resenas:36,color:"#e07a1f",tel:"50370000001",verificado:true,
+ tags:["Pegado de bloque","Acabados finos","Colado de losas"],
+ sobre:"Maestro de obra con 12 años de experiencia en casas, locales y ampliaciones. Trabajo limpio, con materiales y tiempos acordados desde el inicio.",
+ trabajos:["Pegado de bloque y soleras","Repello y afinado de paredes","Colado de losas y vigas","Instalación de piso cerámico"]},
+{id:2,cat:"albanileria",nombre:"José Luis Hernández",ciudad:"Soyapango",depto:"San Salvador",anios:8,rating:4.5,resenas:21,color:"#3a7ca5",tel:"50370000002",verificado:true,
+ tags:["Repellos","Cerámica","Muros perimetrales"],
+ sobre:"Especialista en remodelaciones y muros perimetrales. Cotización gratuita y visita previa al sitio.",
+ trabajos:["Muros perimetrales","Repellos y pintura base","Colocación de cerámica","Reparación de grietas y filtraciones"]},
+{id:3,cat:"fontaneria",nombre:"Roberto Antonio Campos",ciudad:"Santa Tecla",depto:"La Libertad",anios:15,rating:4.9,resenas:58,color:"#2a9d8f",tel:"50370000003",verificado:true,
+ tags:["Fugas","Tuberías","Calentadores"],
+ sobre:"Fontanero residencial y comercial. Atiendo emergencias de fugas y destapado de drenajes.",
+ trabajos:["Detección y reparación de fugas","Instalación de tuberías PVC y cobre","Calentadores y bombas de agua","Destapado de drenajes"]},
+{id:4,cat:"mecanica-automotriz",nombre:"Wilfredo Ernesto Portillo",ciudad:"San Salvador",depto:"San Salvador",anios:10,rating:4.7,resenas:44,color:"#7b4fa3",tel:"50370000004",verificado:true,
+ tags:["Frenos","Suspensión","Diagnóstico con escáner"],
+ sobre:"Mecánico automotriz con taller propio. Diagnóstico honesto y repuestos con garantía.",
+ trabajos:["Cambio de frenos y rectificado","Suspensión y dirección","Diagnóstico con escáner","Afinamiento y mantenimiento preventivo"]}
+];
+
+var app=document.getElementById("app"),state={cat:null,q:"",zona:""};
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function catBy(s){return CATS.filter(function(c){return c[0]===s})[0]}
+function ini(n){var p=n.split(" ");return (p[0][0]+(p[1]?p[1][0]:"")).toUpperCase()}
+function stars(r){var f=Math.round(r),s="";for(var i=0;i<5;i++)s+=i<f?"★":"☆";return s}
+function zonaDe(w){return w.ciudad+(w.ciudad===w.depto?"":", "+w.depto)}
+function count(s){return WORKERS.filter(function(w){return w.cat===s}).length}
+
+function go(token){
+  try{if(location.hash.slice(1)!==token)location.hash=token}catch(e){}
+  render(token);window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",function(){render(location.hash.slice(1))});
+
+function render(t){
+  t=t||"";
+  if(t.indexOf("cat-")===0){state.cat=t.slice(4);state.q="";state.zona="";viewCat()}
+  else if(t==="registro")viewRegistro();
+  else if(t==="checkout")viewCheckout();
+  else if(t==="panel")viewPanel();
+  else if(t.indexOf("perfil-")===0){viewProfile(t.slice(7))}
+  else viewHome();
+}
+
+function viewHome(){
+  var h='<section class="hero"><h1>Encuentra al profesional que necesitas, cerca de ti.</h1>'+
+  '<p>Albañiles, fontaneros, mecánicos y más. Contacta directo, sin comisiones y sin costo para ti.</p>'+
+  '<div class="search home"><input id="q" type="search" placeholder="¿Qué oficio buscas?" aria-label="Buscar oficio"><select id="z" aria-label="Zona"><option value="">Todas las zonas</option>'+
+  zonas(WORKERS)+'</select><button class="btn" onclick="buscarHome()">Buscar</button></div></section>'+
+  '<h2>Explora por categoría</h2><div class="grid cats">';
+  CATS.forEach(function(c){
+    var n=count(c[0]);
+    h+='<button class="card" onclick="go(\'cat-'+c[0]+'\')"><div class="ico">'+c[1]+'</div><b>'+c[2]+'</b><small>'+(n?n+(n===1?" profesional":" profesionales"):"Próximamente")+'</small></button>';
+  });
+  h+='</div><section class="cta"><div><h3>¿Eres profesional de un oficio?</h3><p>Aparece en el directorio por solo $9.99 USD al mes. Sin comisiones por trabajo.</p></div><button class="btn" onclick="go(\'registro\')">Publicar mi perfil</button></section>';
+  app.innerHTML=h;
+}
+function zonas(list){
+  var seen={},o="";
+  list.forEach(function(w){var z=w.ciudad;if(!seen[z]){seen[z]=1;o+='<option>'+esc(z)+'</option>'}});
+  return o;
+}
+function buscarHome(){
+  var q=document.getElementById("q").value.trim().toLowerCase();
+  var hit=CATS.filter(function(c){return c[2].toLowerCase().indexOf(q)>-1})[0];
+  if(q&&hit)go("cat-"+hit[0]);
+  else{var w=WORKERS.filter(function(w){return (w.tags.join(" ")+" "+w.nombre).toLowerCase().indexOf(q)>-1})[0];
+    if(q&&w)go("cat-"+w.cat);else alert("Sin resultados. Prueba con otro oficio.")}
+}
+
+function viewCat(){
+  var c=catBy(state.cat);if(!c){viewHome();return}
+  var all=WORKERS.filter(function(w){return w.cat===c[0]});
+  app.innerHTML='<button class="back" onclick="go(\'\')">← Volver al inicio</button>'+
+  '<h2 style="margin-top:6px">'+c[1]+' '+esc(c[2])+'</h2>'+
+  '<div class="search cat"><input id="fq" type="search" placeholder="Buscar por nombre o especialidad" aria-label="Buscar en la categoría" oninput="state.q=this.value;list()">'+
+  '<select id="fz" aria-label="Zona" onchange="state.zona=this.value;list()"><option value="">Todas las zonas</option>'+zonas(all)+'</select></div>'+
+  '<p id="cnt" class="loc" style="margin:12px 0 8px"></p><div id="lst" class="grid workers"></div>';
+  list();
+}
+function list(){
+  var all=WORKERS.filter(function(w){return w.cat===state.cat}),q=state.q.trim().toLowerCase();
+  var r=all.filter(function(w){
+    return (!state.zona||w.ciudad===state.zona)&&(!q||(w.nombre+" "+w.tags.join(" ")+" "+w.sobre).toLowerCase().indexOf(q)>-1)
+  });
+  document.getElementById("cnt").textContent=r.length+(r.length===1?" profesional encontrado":" profesionales encontrados");
+  var h="";
+  if(!r.length)h='<div class="empty" style="grid-column:1/-1">'+(all.length?"No hay resultados con esos filtros.":"Aún no hay profesionales en esta categoría.")+'</div>';
+  r.forEach(function(w){
+    h+='<article class="wcard"><div class="top">'+av(w,"")+'<div>'+
+    '<div class="name">'+esc(w.nombre)+'</div><div class="loc">📍 '+esc(zonaDe(w))+'</div></div></div>'+
+    '<div class="meta"><span>'+rt(w)+'</span><span>🛠️ '+w.anios+' años</span></div>'+
+    '<div class="tags">'+w.tags.map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join("")+'</div>'+
+    '<button class="btn" onclick="go(\'perfil-'+w.id+'\')">Ver perfil</button></article>';
+  });
+  document.getElementById("lst").innerHTML=h;
+}
+
+function viewProfile(id){
+  var w=WORKERS.filter(function(x){return String(x.id)===String(id)})[0];
+  if(!w){viewHome();return}
+  var c=catBy(w.cat),msg="Hola "+w.nombre.split(" ")[0]+", te encontré en Manos a la Obra y necesito cotizar un trabajo...";
+  app.innerHTML='<button class="back" onclick="go(\'cat-'+w.cat+'\')">← Volver a '+esc(c[2])+'</button>'+
+  '<article class="prof"><div class="top">'+av(w,"lg")+'<div>'+
+  '<div class="name" style="font-size:1.3rem">'+esc(w.nombre)+'</div><div class="loc">'+c[1]+' '+esc(c[2])+' · 📍 '+esc(zonaDe(w))+'</div>'+
+  '<div style="margin-top:6px"><span class="badge">✔ Verificado · Suscripción activa</span></div></div></div>'+
+  '<div class="meta" style="margin-top:12px"><span>'+rt(w)+'</span><span>🛠️ '+w.anios+' años de experiencia</span></div>'+
+  '<div class="actions"><a class="btn block" href="tel:+'+w.tel+'">📞 Llamar</a>'+
+  '<a class="btn wa block" target="_blank" rel="noopener" href="https://wa.me/'+(w.wa||w.tel)+'?text='+encodeURIComponent(msg)+'">💬 WhatsApp</a></div>'+
+  '<h2>Sobre mí</h2><p>'+esc(w.sobre)+'</p>'+
+  '<h2>Especialidades y trabajos</h2><div class="tags" style="margin-bottom:8px">'+w.tags.map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join("")+'</div>'+
+  '<ul>'+w.trabajos.map(function(t){return '<li>'+esc(t)+'</li>'}).join("")+'</ul>'+
+  '<h2>Trabajos anteriores</h2>'+gal(w)+
+  '<p class="loc">Las fotos reales se subirán desde el perfil del trabajador.</p></article>';
+}
+
+/* ===== Registro, pago y panel del trabajador ===== */
+var PRECIO="9.99",COLORS=["#e07a1f","#3a7ca5","#2a9d8f","#7b4fa3","#c44569"],D={foto:null,fotos:[]},S={me:null},GT=D;
+function session(){return S.me}
+function intl(n){return n.length===8?"503"+n:n}
+function fecha(d){return d.toLocaleDateString("es",{day:"numeric",month:"long",year:"numeric"})}
+function mas30(h){return new Date(h.getTime()+30*864e5)}
+function rt(w){return w.resenas?'<span class="stars">'+stars(w.rating)+'</span> '+w.rating.toFixed(1)+' ('+w.resenas+' reseñas)':'<span class="tag">Nuevo</span>'}
+function av(w,cls){return w.foto?'<img class="avatar '+cls+'" src="'+w.foto+'" alt="" style="object-fit:cover">':'<div class="avatar '+cls+'" style="background:'+(w.color||"#e07a1f")+'">'+ini(w.nombre)+'</div>'}
+function gal(w){
+  if(w.fotos&&w.fotos.length)return '<div class="gal">'+w.fotos.map(function(f){return '<img src="'+f+'" alt="Trabajo realizado">'}).join("")+'</div>';
+  return '<div class="gal"><div>🧱</div><div>🏠</div><div>🔨</div></div>';
+}
+function steps(n){return '<div class="steps2">'+["1. Tus datos","2. Pago","3. Perfil activo"].map(function(t,i){return '<span class="'+(i<n?"on":"")+'">'+t+'</span>'}).join("")+'</div>'}
+function readImg(f,max,cb){var r=new FileReader();r.onload=function(){var i=new Image();i.onload=function(){var k=Math.min(1,max/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;c.getContext("2d").drawImage(i,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",.8))};i.src=r.result};r.readAsDataURL(f)}
+function pickFoto(inp){var f=inp.files[0];if(!f)return;readImg(f,400,function(u){GT.foto=u;document.getElementById("fprev").innerHTML='<img class="avatar lg" src="'+u+'" alt="" style="object-fit:cover">'})}
+function pickGal(inp){
+  var room=6-GT.fotos.length,fs=Array.prototype.slice.call(inp.files,0,Math.max(room,0)),pend=fs.length;
+  if(inp.files.length>room)msg("Máximo 6 fotos de trabajos.");
+  inp.value="";if(!pend)return;
+  fs.forEach(function(f){readImg(f,900,function(u){GT.fotos.push(u);if(--pend===0)thumbs()})});
+}
+function thumbs(){var el=document.getElementById("thumbs");if(!el)return;
+  el.innerHTML=GT.fotos.map(function(f,i){return '<div class="th"><img src="'+f+'" alt=""><button type="button" onclick="delFoto('+i+')" aria-label="Quitar foto">×</button></div>'}).join("");
+  document.getElementById("gcount").textContent=GT.fotos.length+" de 6 fotos (mínimo 3)"}
+function delFoto(i){if(GT===S.me&&GT.fotos.length<=3){msg("Debes mantener al menos 3 fotos.");return}GT.fotos.splice(i,1);thumbs()}
+function msg(t){var e=document.getElementById("err")||document.getElementById("ok");if(e)e.textContent=t}
+
+function viewRegistro(){
+  GT=D;
+  var opts=CATS.map(function(c){return '<option value="'+c[0]+'"'+(D.cat===c[0]?" selected":"")+'>'+c[1]+' '+esc(c[2])+'</option>'}).join("");
+  var v=function(k){return esc(D[k]||"")};
+  app.innerHTML='<button class="back" onclick="go(\'\')">← Volver al inicio</button><h2 style="margin-top:6px">Crea tu perfil profesional</h2>'+steps(1)+
+  '<div class="prof"><form class="form" onsubmit="return paso2(event)">'+
+  '<div class="field"><label>Foto de perfil</label><div class="row"><span id="fprev">'+(D.foto?'<img class="avatar lg" src="'+D.foto+'" alt="" style="object-fit:cover">':'<div class="avatar lg" style="background:var(--chip)">📷</div>')+'</span><input type="file" accept="image/*" onchange="pickFoto(this)"></div></div>'+
+  '<div class="field"><label for="f_n">Nombre completo</label><input id="f_n" value="'+v("nombre")+'" placeholder="Ej: Carlos Alberto Martínez"></div>'+
+  '<div class="field"><label for="f_t">Teléfono principal</label><input id="f_t" type="tel" value="'+v("telraw")+'" placeholder="7000 0000"></div>'+
+  '<div class="field"><label for="f_w">WhatsApp (déjalo vacío si es el mismo número)</label><input id="f_w" type="tel" value="'+v("waraw")+'" placeholder="7000 0000"></div>'+
+  '<div class="field"><label for="f_o">Oficio principal</label><select id="f_o">'+opts+'</select></div>'+
+  '<div class="field"><label for="f_c">Ciudad / municipio</label><input id="f_c" list="ciud" value="'+v("ciudad")+'" placeholder="Ej: San Miguel"><datalist id="ciud"><option>San Salvador</option><option>Soyapango</option><option>Santa Tecla</option><option>San Miguel</option><option>Santa Ana</option><option>Apopa</option><option>Mejicanos</option><option>Usulután</option></datalist></div>'+
+  '<div class="field"><label for="f_a">Años de experiencia</label><input id="f_a" type="number" min="0" max="60" value="'+v("anios")+'"></div>'+
+  '<div class="field"><label for="f_e">Especialidades (separadas por coma)</label><input id="f_e" value="'+v("tagsraw")+'" placeholder="Pegado de bloque, Losas, Repellos"></div>'+
+  '<div class="field"><label for="f_d">Descripción: a qué te dedicas, experiencia y zona de cobertura</label><textarea id="f_d" placeholder="Mínimo 30 caracteres">'+v("sobre")+'</textarea></div>'+
+  '<div class="field"><label>Fotos de trabajos realizados (3 a 6)</label><input type="file" accept="image/*" multiple onchange="pickGal(this)"><div id="thumbs" class="thumbs"></div><small id="gcount" class="loc"></small></div>'+
+  '<div id="err" role="alert"></div><button class="btn" type="submit">Continuar al pago →</button></form></div>';
+  thumbs();
+}
+function paso2(e){
+  e.preventDefault();
+  var g=function(i){return document.getElementById(i).value.trim()},tel=g("f_t").replace(/\D/g,""),wa=g("f_w").replace(/\D/g,""),m="";
+  if(g("f_n").split(/\s+/).length<2)m="Escribe tu nombre completo.";
+  else if(tel.length<8)m="Escribe un teléfono válido.";
+  else if(!g("f_c"))m="Indica tu ciudad o municipio.";
+  else if(g("f_d").length<30)m="La descripción debe tener al menos 30 caracteres.";
+  else if(D.fotos.length<3)m="Sube de 3 a 6 fotos de tus trabajos.";
+  if(m){var er=document.getElementById("err");er.textContent=m;er.scrollIntoView({block:"center"});return false}
+  var tg=g("f_e");
+  D.nombre=g("f_n");D.telraw=g("f_t");D.waraw=g("f_w");D.tel=intl(tel);D.wa=intl(wa||tel);D.cat=g("f_o");D.ciudad=g("f_c");
+  D.anios=+g("f_a")||0;D.tagsraw=tg;D.tags=tg?tg.split(",").map(function(x){return x.trim()}).filter(Boolean):[];D.sobre=g("f_d");
+  D.color=COLORS[WORKERS.length%COLORS.length];
+  go("checkout");return false;
+}
+function viewCheckout(){
+  if(!D.nombre){go("registro");return}
+  var c=catBy(D.cat);
+  app.innerHTML='<button class="back" onclick="go(\'registro\')">← Editar mis datos</button><h2 style="margin-top:6px">Activa tu perfil</h2>'+steps(2)+
+  '<div class="prof"><div class="top">'+av(D,"")+'<div><div class="name">'+esc(D.nombre)+'</div><div class="loc">'+c[1]+' '+esc(c[2])+' · 📍 '+esc(D.ciudad)+'</div></div></div>'+
+  '<h2>Resumen de cobro</h2><div class="sum"><div><span>Suscripción mensual Manos a la Obra</span><b>$'+PRECIO+' USD</b></div><div><span>Impuestos y comisiones</span><b>$0.00</b></div><div class="tot"><span>Total hoy</span><b>$'+PRECIO+' USD</b></div></div>'+
+  '<p class="loc">Se renueva cada mes (próximo cobro: '+fecha(mas30(new Date()))+'). Puedes cancelar cuando quieras desde tu panel.</p>'+
+  '<div class="empty" style="margin:14px 0">🔒 Modo simulación: no se realiza ningún cobro real. Aquí se conectará Stripe Checkout.</div>'+
+  '<button class="btn" style="width:100%" onclick="activar()">Simular pago y activar perfil</button></div>';
+}
+function activar(){
+  var h=new Date(),w={id:100+WORKERS.length,cat:D.cat,nombre:D.nombre,ciudad:D.ciudad,depto:D.ciudad,anios:D.anios,rating:0,resenas:0,color:D.color,tel:D.tel,wa:D.wa,verificado:true,tags:D.tags,sobre:D.sobre,trabajos:D.tags,foto:D.foto,fotos:D.fotos.slice(),sub:{estado:"activa",inicio:h,vence:mas30(h)}};
+  WORKERS.push(w);S.me=w;D={foto:null,fotos:[]};go("panel");
+}
+function viewPanel(){
+  var w=S.me;if(!w){go("registro");return}
+  GT=w;var c=catBy(w.cat),on=w.sub.estado==="activa";
+  app.innerHTML='<button class="back" onclick="go(\'\')">← Ir al directorio</button><h2 style="margin-top:6px">Mi panel</h2>'+
+  '<div class="prof"><div class="top">'+av(w,"lg")+'<div><div class="name" style="font-size:1.2rem">'+esc(w.nombre)+'</div><div class="loc">'+c[1]+' '+esc(c[2])+' · 📍 '+esc(w.ciudad)+'</div>'+
+  '<div style="margin-top:6px">'+(on?'<span class="badge">✔ Suscripción activa</span>':'<span class="badge off">Sin suscripción activa · perfil oculto</span>')+'</div></div></div>'+
+  '<div class="sum" style="margin-top:14px"><div><span>Plan</span><b>$'+PRECIO+' USD / mes</b></div><div><span>Inicio</span><b>'+fecha(w.sub.inicio)+'</b></div><div><span>'+(on?"Próximo cobro":"Venció")+'</span><b>'+fecha(w.sub.vence)+'</b></div><div><span>Perfil en el directorio</span><b>'+(on?"Visible":"Oculto")+'</b></div></div>'+
+  '<div class="actions"><button class="btn block" onclick="go(\'perfil-'+w.id+'\')">Ver mi perfil público</button>'+
+  (on?'<button class="btn ghost block" onclick="cancelar()">Cancelar suscripción</button>':'<button class="btn wa block" onclick="reactivar()">Reactivar ($'+PRECIO+') · simular pago</button>')+'</div></div>'+
+  '<div class="prof form" style="margin-top:14px"><h2 style="margin:0">Editar perfil</h2>'+
+  '<div class="field"><label>Foto de perfil</label><div class="row"><span id="fprev"></span><input type="file" accept="image/*" onchange="pickFoto(this)"></div></div>'+
+  '<div class="field"><label for="p_t">Teléfono principal</label><input id="p_t" type="tel" value="'+esc(w.tel)+'"></div>'+
+  '<div class="field"><label for="p_d">Sobre mí</label><textarea id="p_d">'+esc(w.sobre)+'</textarea></div>'+
+  '<div class="field"><label>Fotos de trabajos (3 a 6)</label><input type="file" accept="image/*" multiple onchange="pickGal(this)"><div id="thumbs" class="thumbs"></div><small id="gcount" class="loc"></small></div>'+
+  '<button class="btn" onclick="guardar()">Guardar cambios</button><p id="ok" class="loc" style="margin:0"></p></div>';
+  document.getElementById("fprev").innerHTML=av(w,"lg");thumbs();
+}
+function guardar(){
+  var w=S.me,nt=intl(document.getElementById("p_t").value.replace(/\D/g,"")),d=document.getElementById("p_d").value.trim();
+  if(nt.length<8||d.length<30){msg("Revisa el teléfono y la descripción (mínimo 30 caracteres).");return}
+  if(w.wa===w.tel)w.wa=nt;w.tel=nt;w.sobre=d;msg("✔ Cambios guardados");
+}
+function cancelar(){var i=WORKERS.indexOf(S.me);if(i>-1)WORKERS.splice(i,1);S.me.sub.estado="cancelada";viewPanel()}
+function reactivar(){var h=new Date();S.me.sub={estado:"activa",inicio:h,vence:mas30(h)};WORKERS.push(S.me);viewPanel()}
+
+render(location.hash.slice(1));
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="db.js"></script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js")})}</script>
+</body>
+</html>
