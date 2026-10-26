@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head><div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+  <button onclick="location.hash='admin'" style="background:#ff7a00; color:white; padding:12px 18px; border-radius:30px; border:none; font-weight:bold; cursor:pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">🔐 Admin</button>
+</div>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Manos a la Obra – Directorio de oficios</title>
@@ -11,6 +14,7 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 :root[data-theme="dark"]{--bg:#0e1424;--surface:#161e33;--text:#eef1f8;--muted:#a3adc4;--line:#263150;--chip:#2a2112;--ok:#4cd68a}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
+  <button id="btn-login-admin" onclick="location.hash='admin'" class="btn btn-ghost">Admin / Iniciar Sesión</button>
 body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
 .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
 header{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
